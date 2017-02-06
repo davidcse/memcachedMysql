@@ -3,16 +3,18 @@ html
     link(rel="stylesheet", href="css/eliza-style.css")
     link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Lato")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
     script(type="text/javascript", src="js/therapySession.js")
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
   body
-    div.container.text-center
-      p Hi #{name}! How are you? 
-      p Your current log-in time is #{date}
-    div.container.text-center#wrapper
-      div#menu 
-        p.welcome Chat with Eliza
+    div.container
+      div.jumbotron.text-center
+        p Hi #{name}! How are you? 
+        p Your current log-in time is #{date}
+    div.container
+      div.well.text-center Chat with Eliza
       div#chatbox
-      form(name="human", action="https://localhost:9000/eliza/DOCTOR", method="POST")
-        input(name="user_msg", type="text", id="usermsg", size="50")
-        input(name="submit_msg", type="submit", id="submitmsg", value="Send")
+        ul#chatlist
+      form#human_resp
+        input.form-control.text-center(name="human", type="text", id="humanmsg", size="75")
+        input.form-control(type="submit", id="submitmsg", value="Send")
