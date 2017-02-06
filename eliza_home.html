@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="css/eliza-style.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script type="text/javascript" src="js/therapySession.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+
+	<body>
+		<div class="jumbotron text-center">Hi, I'm Eliza. What is your name?</div>
+		<div class="container text-center">
+			<form action="/eliza" method="POST">
+				<div class="form-group">
+			      <label>My name is </label>
+			      <input type="text" class="form-control text-center" name="name" placeholder="John Smith">
+			      <input type="submit" class="form-control submit" value="Submit">
+			    </div>
+			</form>
+		</div>
+	</body>
+</html>
+
