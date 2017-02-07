@@ -97,5 +97,5 @@ app.post('/eliza', function (req, res) {
 var server = app.listen(80, function () {
   var host = server.address().address
   var port = server.address().port
-  console.log("app listening at http://%s:%s", host, port)
+  console.log("eliza server is listening at http://%s:%s", host, port)
 })

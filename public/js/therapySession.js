@@ -1,3 +1,5 @@
+var url_str="davilin.cse356.compas.cs.stonybrook.edu";
+
 function eliza_response(data){
 	var data = JSON.parse(data);
 	console.log(data);
@@ -20,7 +22,7 @@ $(document).ready(function(){
 		$("#chatlist").append('<li class="human_bubble text-center">'+ humanText +'</li><br>');
     	$.ajax({
   		  type: "post",
-  		  url: "http://localhost/eliza/DOCTOR",
+  		  url: "http://" + url_str + "/eliza/DOCTOR",
 	  	  data: {'human':humanText},
 	  	  timeout: 2000
 	  	}).done(eliza_response);
