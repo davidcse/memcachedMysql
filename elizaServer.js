@@ -60,14 +60,7 @@ app.set('views','./views')
 app.post('/eliza/DOCTOR', function (req, res) {
   console.log(req.body);
   if(req.body.human && typeof(req.body.human)=='string'){
-    var input = req.body.human.toLowerCase();
-    var output;
-    if(input.includes("hi ") || input.includes("hello ") || input.includes("hey ")){
-      output = 'Hi how are you?';
-    }else{
-      output = getRandomResponse();
-    }
-    res.end(JSON.stringify({'eliza':output}));
+    res.end(JSON.stringify({'eliza':getRandomResponse()}));
   }else{
     //invalid format, expected field 'human' in request's json
     res.end("you sent wrong format");
