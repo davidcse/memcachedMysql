@@ -1,5 +1,5 @@
 var url_str="davilin.cse356.compas.cs.stonybrook.edu";
-
+var url_str = "localhost"
 function eliza_response(data){
 	var data = JSON.parse(data);
 	console.log(data);
@@ -28,4 +28,3 @@ $(document).ready(function(){
 	  	}).done(eliza_response);
     });
 });
-
