@@ -19,3 +19,8 @@ body {
 	width: 30%;
 	height:40%;
 }
+
+.message{
+	text-align:center;
+	color:red;
+}
