@@ -1,4 +1,4 @@
-var url_str="davilin.cse356.compas.cs.stonybrook.edu";
+var url_str="http://davilin.cse356.compas.cs.stonybrook.edu";
 var url_str = "http://localhost";
 url_str = "http://130.245.168.140";
 
@@ -51,7 +51,7 @@ $(document).ready(function(){
 			$("#chatlist").append('<li class="human_bubble text-center">'+ humanText +'</li><br>');
 	    	$.ajax({
 	  		  type: "post",
-	  		  url: "http://" + url_str + "/eliza/DOCTOR",
+	  		  url: url_str + "/eliza/DOCTOR",
 		  	  data: {'human':humanText},
 		  	  timeout: 2000
 		  	}).done(eliza_response);
@@ -60,7 +60,7 @@ $(document).ready(function(){
 	$("#logoutButton").click(function(){
 		$.ajax({
 			type: "post",
-			url: "http://" + url_str + "/logout",
+			url: url_str + "/logout",
 			timeout: 2000
 		}).done(function(data){
 			window.location.replace(data.redirect);
@@ -71,7 +71,7 @@ $(document).ready(function(){
 		$("#pastConversationsList").empty();
 		$.ajax({
 			type: "post",
-			url: "http://" + url_str + "/listconv",
+			url: url_str + "/listconv",
 			timeout: 2000
 		}).done(function(data){
 			//parse data and show into modal.
