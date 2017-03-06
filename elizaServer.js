@@ -16,6 +16,7 @@ const crypto = require('crypto');
 var elizaEmail =  "eliza.service.cs@gmail.com";
 var elizaPassword = "elizanodeservice";
 var elizaIndexUrl = "http://localhost";
+elizaIndexUrl = url_str = "http://130.245.168.140";
 var elizaVerificationUrl = elizaIndexUrl + "/verify";
 
 

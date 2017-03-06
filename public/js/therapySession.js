@@ -1,5 +1,6 @@
 var url_str="davilin.cse356.compas.cs.stonybrook.edu";
-var url_str = "localhost";
+var url_str = "http://localhost";
+url_str = "http://130.245.168.140";
 
 
 function loadChatConversation(data){
@@ -67,6 +68,7 @@ $(document).ready(function(){
 	});
 
 	$("#conversationHistoryButton").click(function(){
+		$("#pastConversationsList").empty();
 		$.ajax({
 			type: "post",
 			url: "http://" + url_str + "/listconv",
