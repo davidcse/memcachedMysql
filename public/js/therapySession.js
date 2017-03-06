@@ -51,7 +51,7 @@ $(document).ready(function(){
 			$("#chatlist").append('<li class="human_bubble text-center">'+ humanText +'</li><br>');
 	    	$.ajax({
 	  		  type: "post",
-	  		  url: url_str + "/eliza/DOCTOR",
+	  		  url: url_str + "/DOCTOR",
 		  	  data: {'human':humanText},
 		  	  timeout: 2000
 		  	}).done(eliza_response);

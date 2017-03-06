@@ -357,6 +357,41 @@ app.post('/login',function(req,res){
       console.log("User successfully logged in\nFinished /login\n");
       req.session.user = foundObject;
       req.session.cookie.expires = false;
+
+      //FOR TESTING PURPOSE:
+      /******************************/
+      /*  TEST START                 */
+      /******************************/      //If user starts a new Chat session by posting to the eliza rest endpoint.
+      //if name field was supplied, use pug template engine to generate authenticated page
+      //Create a new record in Mongodb of this conversation session.
+      var newConverseHistory = new ConverseHistoryModel();
+      var currentSessionTime = Date();
+      //Mongodb record values
+      newConverseHistory.username = req.session.user.username;
+      newConverseHistory.start_date = currentSessionTime;
+      newConverseHistory.save(function(){
+        //retrieve the stored value, and store the current conversation ID into the session.
+        ConverseHistoryModel.findOne({"start_date":currentSessionTime},function(error,resultSet){
+          var sessionInfo;
+          if(error){
+            console.log(error);
+            console.log("Encountered error in ConverseHistoryModel() at app.post/eliza\n");
+            sessionInfo = {name: newConverseHistory.username, date: newConverseHistory.start_date.toString(), sessionId: ''};
+            req.session.sessionInfo = sessionInfo;
+          }else{
+            sessionInfo = {name: newConverseHistory.username, date: newConverseHistory.start_date.toString(), sessionId: resultSet._id.toString()};
+            req.session.sessionInfo = sessionInfo;
+          }
+          //For testing, send them OK status
+          return res.json({"status":"OK","redirect":elizaIndexUrl+"/eliza"});
+        });
+      });
+      return
+      /******************************/
+      /*  TEST END                  */
+      /******************************/
+
+      //tell client to go to eliza service entrance
       res.json({"status":"OK","redirect":elizaIndexUrl+"/eliza"});
     }
   });
@@ -417,6 +452,11 @@ app.post('/eliza', function (req, res) {
     });
     return
   }
+  /********************************/
+  /*  REMOVED FOR TEST            */
+  /*******************************/
+  /*
+
 
   //If user starts a new Chat session by posting to the eliza rest endpoint.
   //if name field was supplied, use pug template engine to generate authenticated page
@@ -444,13 +484,18 @@ app.post('/eliza', function (req, res) {
     });
   });
 
+  */
+  /********************************/
+  /*  REMOVED FOR TEST            */
+  /*******************************/
+
 });
 
 
 /*
  * Eliza rest service for conversation processing.
  */
-app.post('/eliza/DOCTOR', function (req, res) {
+app.post('/DOCTOR', function (req, res) {
   //check for session authenticated
   if(!req.session.user){
     console.log("Denied User due to lack of session token\n");
