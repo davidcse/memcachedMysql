@@ -38,7 +38,7 @@ $( document ).ready(function() {
     e.preventDefault();
     $.ajax({
 			type: "post",
-			url: "http://" + url_str + $("#main-form").attr("action"),
+			url: url_str + $("#main-form").attr("action"),
       data:{
         "username":$("#usernameField").val(),
         "password":$("#passwordField").val(),
