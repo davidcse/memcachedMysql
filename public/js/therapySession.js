@@ -1,6 +1,7 @@
 var url_str="http://davilin.cse356.compas.cs.stonybrook.edu";
 var url_str = "http://localhost";
 url_str = "http://130.245.168.140";
+url_str = location.host;
 
 
 function loadChatConversation(data){

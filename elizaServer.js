@@ -13,15 +13,14 @@ var session = require('express-session');
 const crypto = require('crypto');
 
 //Important variables
-if(process.argv.length < 4){
-  console.log("Usage: node elizaServer.js -- gmail_username, --gmail__password\n");
+if(process.argv.length < 5){
+  console.log("Usage: node elizaServer.js -- gmail_username, --gmail__password --host ip \n");
   process.exit(1);
 }
 
 var elizaEmail = process.argv[2];
 var elizaPassword = process.argv[3];
-var elizaIndexUrl = "http://localhost";
-elizaIndexUrl = url_str = "http://130.245.168.140";
+var elizaIndexUrl = url_str = process.argv[4];
 var elizaVerificationUrl = elizaIndexUrl + "/verify";
 
 

@@ -1,5 +1,4 @@
-var url_str = "localhost";
-url_str = "http://130.245.168.140";
+var url_str = location.host;
 
 function createUserMode(){
   $(".collapse").show();
