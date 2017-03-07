@@ -49,7 +49,7 @@ $(document).ready(function(){
 			$("#chatlist").append('<li class="human_bubble text-center">'+ humanText +'</li><br>');
 	    	$.ajax({
 	  		  type: "post",
-	  		  url: url_str + "/DOCTOR",
+	  		  url: "/DOCTOR",
 		  	  data: {'human':humanText},
 		  	  timeout: 2000
 		  	}).done(eliza_response);
@@ -58,7 +58,7 @@ $(document).ready(function(){
 	$("#logoutButton").click(function(){
 		$.ajax({
 			type: "post",
-			url: url_str + "/logout",
+			url: "/logout",
 			timeout: 2000
 		}).done(function(data){
 			window.location.replace(data.redirect);
@@ -69,7 +69,7 @@ $(document).ready(function(){
 		$("#pastConversationsList").empty();
 		$.ajax({
 			type: "post",
-			url: url_str + "/listconv",
+			url:"/listconv",
 			timeout: 2000
 		}).done(function(data){
 			//parse data and show into modal.
