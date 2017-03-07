@@ -12,15 +12,22 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 const crypto = require('crypto');
 
-//Important variables
-if(process.argv.length < 5){
-  console.log("Usage: node elizaServer.js -- gmail_username, --gmail__password --host ip \n");
+if(process.argv.length < 4){
+  console.log("Usage: node elizaServer.js -- gmail_username, --gmail__password \n");
   process.exit(1);
 }
 
+// Starts the server
+var server = app.listen(80, function () {
+  var host = server.address().address
+  var port = server.address().port
+  console.log("eliza server is listening at http://%s:%s", host, port)
+})
+
+//Important variables
 var elizaEmail = process.argv[2];
 var elizaPassword = process.argv[3];
-var elizaIndexUrl = url_str = process.argv[4];
+var elizaIndexUrl = url_str = server.address().address;
 var elizaVerificationUrl = elizaIndexUrl + "/verify";
 
 
@@ -594,10 +601,3 @@ app.post("/getconv",function(req,res){
   });
 
 });
-
-// Starts the server
-var server = app.listen(80, function () {
-  var host = server.address().address
-  var port = server.address().port
-  console.log("eliza server is listening at http://%s:%s", host, port)
-})
