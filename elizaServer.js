@@ -286,7 +286,7 @@ app.get('/verify', function (req, res) {
           return
         }else{
           console.log("Activated User: "+JSON.stringify(savedObject));
-          res.end("<html><body>Successfully verified! <a href='"+ elizaIndexUrl+"'>Click link to sign in.</a></body></html>");
+          res.end("<html><body>Successfully verified! <a href='"+ "/"+"'>Click link to sign in.</a></body></html>");
           console.log("Activation successful\nFinished /verify\n");
         }
       });
