@@ -1,4 +1,4 @@
-url_str = location.host;
+url_str = "/";
 
 
 function loadChatConversation(data){

@@ -20,7 +20,13 @@ if(process.argv.length < 5){
 
 var elizaEmail = process.argv[2];
 var elizaPassword = process.argv[3];
-var elizaIndexUrl = url_str = process.argv[4];
+var hostIp;
+if(process.argv[4].slice(-1)=="/"){
+  hostIp = process.argv[4].slice(0,-1);
+}else{
+  hostIp = process.argv[4];
+}
+var elizaIndexUrl = url_str = hostIp;
 var elizaVerificationUrl = elizaIndexUrl + "/verify";
 
 

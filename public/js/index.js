@@ -1,4 +1,4 @@
-var url_str = location.host;
+var url_str = "";
 
 function createUserMode(){
   $(".collapse").show();
@@ -48,7 +48,7 @@ $( document ).ready(function() {
       refreshFields();
       //check if redirects to another page
       if(data.redirect && typeof(data.redirect)== "string"){
-        window.location.href = data.redirect;
+        window.location.replace(data.redirect);
       }else if(data.message && typeof(data.message) =='string'){
         $("#messageDiv").text(data.message);
         $("#messageDiv").show();
