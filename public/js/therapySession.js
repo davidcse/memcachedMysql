@@ -20,14 +20,13 @@ function loadChatConversation(data){
 /*
  * Used by the server-injected javascript call.
  * Invoked when opening another tab, in the same client session.
- * @param indexUrl = server tells client to call where the server host is.
  * @param conversationId = server tells client to call rest endpoint with the conversation Object ID.
  */
-function clientScriptRetrieveChat(indexUrl,conversationId){
+function clientScriptRetrieveChat(conversationId){
   $(document).ready(function(){
     $.ajax({
       type: 'post',
-      url: indexUrl + '/getconv',
+      url: '/getconv',
       data: {'id': conversationId},
       timeout: 2000
     }).done(function(response){
@@ -80,7 +79,7 @@ $(document).ready(function(){
 		});
 	});
 
-	//handler to see conversation history. 
+	//handler to see conversation history.
 	$("#conversationHistoryButton").click(function(){
 		$("#pastConversationsList").empty();
 		$.ajax({

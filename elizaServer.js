@@ -193,7 +193,7 @@ app.get('/', function (req, res) {
   var renderJson = {
     name:req.session.sessionInfo.name,
     date: req.session.sessionInfo.date,
-    injectedScriptText:"clientScriptRetrieveChat('"+ "/" +"','"+ req.session.sessionInfo.sessionId + "');"//invoke on client browser
+    injectedScriptText:"clientScriptRetrieveChat('"+ req.session.sessionInfo.sessionId + "');"//invoke on client browser
   };
   res.render('authenticated',renderJson);
 });
