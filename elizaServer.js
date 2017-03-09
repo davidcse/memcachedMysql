@@ -27,8 +27,7 @@ if(process.argv[4].slice(-1)=="/"){
 }else{
   hostIp = process.argv[4];
 }
-var elizaIndexUrl = hostIp;
-var elizaVerificationUrl = elizaIndexUrl + "/verify";
+var elizaVerificationUrl = hostIp + "/verify";
 
 
 //APP CONFIG
@@ -194,7 +193,7 @@ app.get('/', function (req, res) {
   var renderJson = {
     name:req.session.sessionInfo.name,
     date: req.session.sessionInfo.date,
-    injectedScriptText:"clientScriptRetrieveChat('"+ elizaIndexUrl +"','"+ req.session.sessionInfo.sessionId + "');"//invoke on client browser
+    injectedScriptText:"clientScriptRetrieveChat('"+ "/" +"','"+ req.session.sessionInfo.sessionId + "');"//invoke on client browser
   };
   res.render('authenticated',renderJson);
 });
