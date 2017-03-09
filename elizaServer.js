@@ -20,13 +20,14 @@ if(process.argv.length < 5){
 
 var elizaEmail = process.argv[2];
 var elizaPassword = process.argv[3];
+//process host IP, remove the "/" since it is included in code already.
 var hostIp;
 if(process.argv[4].slice(-1)=="/"){
   hostIp = process.argv[4].slice(0,-1);
 }else{
   hostIp = process.argv[4];
 }
-var elizaIndexUrl = url_str = hostIp;
+var elizaIndexUrl = hostIp;
 var elizaVerificationUrl = elizaIndexUrl + "/verify";
 
 
@@ -393,7 +394,7 @@ app.post('/login',function(req,res){
             req.session.sessionInfo = sessionInfo;
           }
           //For testing, send them OK status
-          return res.json({"status":"OK","redirect":elizaIndexUrl+"/eliza"});
+          return res.json({"status":"OK","redirect":"/eliza"});
         });
       });
       return
@@ -402,7 +403,7 @@ app.post('/login',function(req,res){
       /******************************/
 
       //tell client to go to eliza service entrance
-      res.json({"status":"OK","redirect":elizaIndexUrl+"/eliza"});
+      res.json({"status":"OK","redirect": "/eliza"});
     }
   });
 
@@ -418,7 +419,7 @@ app.post('/login',function(req,res){
      console.log("Error on /logout, during destroy() session\n");
    });
    console.log("\nLogging out the current user\n");
-   res.json({"status":"OK","redirect":elizaIndexUrl});
+   res.json({"status":"OK","redirect": "/"});
  });
 
 
@@ -429,7 +430,7 @@ app.post('/login',function(req,res){
 app.get('/eliza', function (req, res) {
   if(!req.session.user){
     console.log("Denied User due to lack of session token\n");
-    return res.json({"status":"ERROR","redirect":elizaIndexUrl});
+    return res.json({"status":"ERROR","redirect":"/"});
   }
 
   //check if first time entering into chat
@@ -451,7 +452,7 @@ app.post('/eliza', function (req, res) {
   //check for session authenticated
   if(!req.session.user){
     console.log("Denied User due to lack of session token\n");
-    return res.json({"status":"ERROR","redirect":elizaIndexUrl});
+    return res.json({"status":"ERROR","redirect":"/"});
   }
 
   //If name is not provided, simply send back the error page.
@@ -509,7 +510,7 @@ app.post('/DOCTOR', function (req, res) {
   //check for session authenticated
   if(!req.session.user){
     console.log("Denied User due to lack of session token\n");
-    return res.json({"status":"ERROR","redirect":elizaIndexUrl});
+    return res.json({"status":"ERROR","redirect":"/"});
   }
 
   //Process the user message and store it in database
@@ -540,7 +541,7 @@ app.post('/listconv', function(req,res){
   //check for session authenticated
   if(!req.session.user){
     console.log("Denied User due to lack of session token\n");
-    return res.json({"status":"ERROR","message":"Not Authorized","redirect":elizaIndexUrl});
+    return res.json({"status":"ERROR","message":"Not Authorized","redirect":"/"});
   }
 
   //find the current user in the database, and return the conversation history.
@@ -568,7 +569,7 @@ app.post("/getconv",function(req,res){
   //check for session authenticated
   if(!req.session.user){
     console.log("Denied User due to lack of session token\n");
-    return res.json({"status":"ERROR","message":"Not Authorized","redirect":elizaIndexUrl});
+    return res.json({"status":"ERROR","message":"Not Authorized","redirect":"/"});
   }
 
   //query all the messages related to the conversation identified by conversation ID.

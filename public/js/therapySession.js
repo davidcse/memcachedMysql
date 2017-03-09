@@ -1,6 +1,10 @@
-url_str = "/";
+// url_str = "/";
 
-
+/*
+ * If re-opening a session on another tab, make rest call to get current session data.
+ * Load into client UI.
+ * @param data: json containing client chat data.
+ */
 function loadChatConversation(data){
 	var conversation = data.conversation;
 	for(var i=0;i<conversation.length;i++){
@@ -13,6 +17,12 @@ function loadChatConversation(data){
 	$('#chatbox').scrollTop($('#chatbox')[0].scrollHeight);
 }
 
+/*
+ * Used by the server-injected javascript call.
+ * Invoked when opening another tab, in the same client session.
+ * @param indexUrl = server tells client to call where the server host is.
+ * @param conversationId = server tells client to call rest endpoint with the conversation Object ID.
+ */
 function clientScriptRetrieveChat(indexUrl,conversationId){
   $(document).ready(function(){
     $.ajax({
@@ -27,6 +37,9 @@ function clientScriptRetrieveChat(indexUrl,conversationId){
   });
 }
 
+/*
+ * Process a response from eliza server. Appends to UI, depending on whether it is human/eliza response.
+ */
 function eliza_response(data){
 	var data = JSON.parse(data);
 	console.log(data);
@@ -43,18 +56,20 @@ function eliza_response(data){
 }
 
 $(document).ready(function(){
-    $('#human_resp').on('submit', function(e){
-    	e.preventDefault();
-    	var humanText = $('#humanmsg').val();
-			$("#chatlist").append('<li class="human_bubble text-center">'+ humanText +'</li><br>');
-	    	$.ajax({
-	  		  type: "post",
-	  		  url: "/DOCTOR",
-		  	  data: {'human':humanText},
-		  	  timeout: 2000
-		  	}).done(eliza_response);
-	    });
+	//Assigns handlers to the chat input during eliza chat session.
+  $('#human_resp').on('submit', function(e){
+  	e.preventDefault();
+  	var humanText = $('#humanmsg').val();
+		$("#chatlist").append('<li class="human_bubble text-center">'+ humanText +'</li><br>');
+    	$.ajax({
+  		  type: "post",
+  		  url: "/DOCTOR",
+	  	  data: {'human':humanText},
+	  	  timeout: 2000
+	  	}).done(eliza_response);
+    });
 
+	// handler to logout client from session.
 	$("#logoutButton").click(function(){
 		$.ajax({
 			type: "post",
@@ -65,6 +80,7 @@ $(document).ready(function(){
 		});
 	});
 
+	//handler to see conversation history. 
 	$("#conversationHistoryButton").click(function(){
 		$("#pastConversationsList").empty();
 		$.ajax({
