@@ -26,52 +26,61 @@ var pool=mysql.createPool({
 
 
 
-function handle_database(req,res) {
+function handle_database(state,service_type, res) {
+    //console.log("servicing request - state " + state + "\t service_type : "  + service_type);
     pool.getConnection(function(err,connection){
         if (err) {
-          return {
+          return res.json({
             "status" : "ERROR",
             "message" : "Error in connection database"
          });
         }
-        console.log('connected as id ' + connection.threadId);
+        //console.log('connected as id ' + connection.threadId);
 
-        var queryString = "select AVG(comm_rate) AS comm_rate_avg \
-        AVG(ind_rate) AS ind_rate_avg\
-        AVG(res_rate) AS res_rate_avg\
-        from electric\
-        where state='" +req.state+"'\
-        AND service_type='"+req.service_type+"';";
+        var queryString = "select AVG(comm_rate) AS comm_rate_avg, " +
+        "AVG(ind_rate) AS ind_rate_avg, " + 
+        "AVG(res_rate) AS res_rate_avg " + 
+        "from electric  " + 
+        "where state='" + state+"' " +
+        "AND service_type='"+service_type+"';";
 
         connection.query(queryString,function(err,rows){
             connection.release();
             if(!err) {
+              //console.log("Rows : " + JSON.stringify(rows));
               if(rows){
-                return {
+                return res.json({
                   "status": "OK",
                   "comm_rate_avg": rows[0].comm_rate_avg,
                   "ind_rate_avg": rows[0].ind_rate_avg,
                   "res_rate_avg": rows[0].res_rate_avg
-                }
+                });
               }
-            }
+            }else{
+		//console.log("Encountered error in result set: "+ err);
+                return res.json({
+                  "status": "ERROR",
+                  "message" : "No rows"
+                });
+                
+	    }
         });
         connection.on('error', function(err) {
-          return{
+          return res.json({
             "status" : "ERROR",
             "message" : "Error in connection database"
-          };
+          });
         });
   });
 }
 
 app.post('/hw7', function (req, res) {
-  var data = handle_database(req,res);
-  return res.json(data);
+  //console.log("request body: " + req.body);
+  handle_database(req.body.state,req.body.service_type,res);
 });
 
 // Starts the server
-var server = app.listen(8080, function () {
+var server = app.listen(80, function () {
   var host = server.address().address
   var port = server.address().port
   console.log("server is listening at http://%s:%s", host, port)
