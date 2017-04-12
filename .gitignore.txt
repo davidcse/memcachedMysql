@@ -1,2 +1,3 @@
 *.pem
 *.debug.log.*
+node_modules
