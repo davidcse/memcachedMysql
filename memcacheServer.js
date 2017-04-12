@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 
 
 var pool=mysql.createPool({
-    connectionLimit : 500, //important
+    connectionLimit : 1000, //important
     host     : 'localhost',
     user     : 'root',
     password : 'EclipseScript7',
@@ -41,7 +41,9 @@ function handle_database(state,service_type, res) {
     "from electric  " +
     "where state='" + state+"' " +
     "AND service_type='"+service_type+"';";
-    memcached.get(queryString,function(err,data){
+    var queryStringStripped = queryString.replace(/\s/g,"");
+//    console.log("queryStringStripped: " + queryStringStripped);
+    memcached.get(queryStringStripped,function(err,data){
         if(data){
           return res.json(data);
         }else{
@@ -64,9 +66,9 @@ function handle_database(state,service_type, res) {
                           "ind_rate_avg": rows[0].ind_rate_avg,
                           "res_rate_avg": rows[0].res_rate_avg
                         };
-                        memcached.set(queryString,responseObj,100000,function(err){
+                        memcached.set(queryStringStripped,responseObj,100000,function(err){
                           if(err){
-                            console.log("memcached set error");
+                            console.log("memcached set error:"+err);
                           }
                         });
                         return res.json(responseObj);
@@ -80,12 +82,12 @@ function handle_database(state,service_type, res) {
 
                     }
                 });
-                connection.on('error', function(err) {
-                  return res.json({
-                    "status" : "ERROR",
-                    "message" : "Error in connection database"
-                  });
-                });
+                //connection.on('error', function(err) {
+                 // return res.json({
+                 //   "status" : "ERROR",
+                 //   "message" : "Error in connection database"
+                 // });
+                //});
           });
         }
     });
